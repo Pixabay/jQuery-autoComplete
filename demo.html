@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery autoComplete Plugin</title>
+    <meta name="description" content="A lightweight autocomplete plugin for jQuery.">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <style>
+        body { margin: 0; padding: 0; border: 0; min-width: 320px; color: #777; }
+        html, button, input, select, textarea, .pure-g [class *= "pure-u"] { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 1.02em; }
+        p, td { line-height: 1.5; }
+        ul { padding: 0 0 0 20px; }
+
+        th { background: #eee; white-space: nowrap; }
+        th, td { padding: 10px; text-align: left; vertical-align: top; font-size: .9em; font-weight: normal; border-right: 1px solid #fff; }
+        td:first-child { white-space: nowrap; color: #008000; width: 1%; font-style: italic; }
+
+        h1, h2, h3 { color: #4b4b4b; font-family: "Source Sans Pro", sans-serif; font-weight: 300; margin: 0 0 1.2em; }
+        h1 { font-size: 4.5em; color: #1f8dd6; margin: 0 0 .4em; }
+        h2 { font-size: 2em; color: #636363; }
+        h3 { font-size: 1.8em; color: #4b4b4b; margin: 1.8em 0 .8em }
+        h4 { font: bold 1em sans-serif; color: #636363; margin: 4em 0 1em; }
+        a { color: #4e99c7; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        p, pre { margin: 0 0 1.2em; }
+        ::selection { color: #fff; background: #328efd; }
+        ::-moz-selection { color: #fff; background: #328efd; }
+
+        @media (max-width:480px) {
+            h1 { font-size: 3em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            td:first-child { white-space: normal; }
+        }
+
+        .inline-code {
+            padding: 1px 5px; background: #eee;
+            border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px;
+        }
+        pre { padding: 15px 10px; font-size: .9em; color: #555; background: #edf3f8; }
+        pre i { color: #aaa; } /* comments */
+        pre b { font-weight: normal; color: #cf4b25; } /* strings */
+        pre em { color: #0c59e9; } /* strings */
+
+        /* Pure CSS */
+        .pure-button { margin: 5px 0; text-decoration: none !important; }
+        .button-xlarge { margin: 5px 0; padding: .65em 1.6em; font-size: 105%; }
+        .button-small { font-size: 85%; }
+
+        input[type="text"] { -moz-border-radius: 0 !important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+
+        /* autoComplete styles */
+        .autocomplete-suggestions {
+            text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff;
+            -webkit-box-shadow: -1px 1px 3px rgba(0,0,0,.1); -moz-box-shadow: -1px 1px 3px rgba(0,0,0,.1); box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+
+            /* core styles should not be changed */
+            position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto;
+            -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+        }
+        .autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; font-size: 1.02em; color: #333; }
+        .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
+        .autocomplete-suggestion.selected { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div style="max-width:900px;padding:0 10px;margin:40px auto;text-align:center">
+        <h1>autoComplete</h1>
+        <h2>An extremely lightweight completion suggester plugin for jQuery.</h2>
+        <a style="margin:5px 0" href="https://github.com/.../archive/master.zip" class="pure-button pure-button-primary button-xlarge">Download</a>
+        &nbsp;
+        <a style="margin:5px 0" href="#" class="pure-button button-xlarge">View on GitHub</a>
+    </div>
+    <form onsubmit="$('#hero-demo').blur().focus();return false;" class="pure-form" style="border-top: 1px solid #eee;border-bottom:1px solid #eee;background:#fafafa;margin:30px 0;padding:20px 10px;text-align:center">
+        <input id="hero-demo" autofocus type="text" name="q" placeholder="Programming languages ..." style="width:100%;max-width:600px;outline:0">
+    </form>
+    <div style="max-width:900px;margin:auto;padding:0 10px 50px">
+        <h3>Overview and Features</h3>
+        <p>
+            Released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>.
+            Source on <a href="#">Github</a> (<a href="#changelog">changelog</a>).
+            Compatible with jQuery 1.7.0+ in Firefox, Safari, Chrome, Opera, Internet Explorer 7+. No dependencies except the jQuery library.
+        </p>
+        <ul>
+            <li>Lightweight: 3.4 kB of JavaScript - less than 1.4 kB gzipped</li>
+            <li>Fully flexible data source</li>
+            <li>Smart caching, delay and minimum character settings</li>
+            <li>Callbacks</li>
+        </ul>
+        <p>
+            This plugin was developed by and for <a href="http://pixabay.com/">Pixabay.com</a> - an international repository for sharing free public domain images.
+            We have implemented this plugin in production and we share this piece of software - in the spirit of Pixabay - freely with others.
+        </p>
+
+        <h3>Why another jQuery autocomplete plugin?</h3>
+        <p>
+            This plugin is largely based on DevBridge's wonderful <a href="https://github.com/devbridge/jQuery-Autocomplete">Ajax AutoComplete</a>.
+            We used this autocompleter for several weeks on Pixabay and it worked nicely.
+            However, we ended up hacking more and more into the original code - changing keyboard navigation and AJAX requests.
+            Finally, we decided to go for an own, ultra lightweight plugin code that is perfectly optimized for our needs. And here we are ...
+        </p>
+
+        <h3>Usage</h3>
+        <p>
+            Include the JavsScript file <span class="inline-code">jquery.auto-complete.min.js</span> after loading the jQuery library.
+            autoComplete accepts settings from an object of key/value pairs, and can be assigned to any text input field.
+        </p>
+        <pre>
+$(selector).autoComplete({key1: value1, key2: value2});
+</pre>
+
+        <h3>Settings</h3>
+        <table>
+            <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+            <tr><td>source(term, response)</td><td><i>null</i></td><td>
+                A callback function to connect any data source to autoComplete. The callback gets two arguments:
+                <ul>
+                    <li><span class="inline-code">term</span>, which refers to the value currently in the text input.</li>
+                    <li>A <span class="inline-code">response</span> callback, which expects a single argument:
+                        the data to suggest to the user. This data must be an array of filtered suggestions based on the provided term:
+                        <br>['suggestion 1', 'suggestion 2', 'suggestion 3', ...]
+                        <br>You must always call the response callback even if you encounter an error or if no suggestions are available.
+                    </li>
+                </ul>
+            </td></tr>
+            <tr><td>minChars</td><td>2</td><td>Minimum number of characters (>=1) a user must type before a search is performed.</td></tr>
+            <tr><td>delay</td><td>0</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
+            <tr><td>cache</td><td><i>true</i></td><td>Determines if performed searches should be cached.</td></tr>
+
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr><th>Callbacks</th><th colspan="2"></th></tr>
+            <tr><td>onSelect(term)</td><td colspan="2">
+                A callback function that fires when a suggestion is selected by mouse click. <span class="inline-code">term</span> is the selected value.
+                Select on pressing <i>Enter</i>, <i>Tab</i>, and other control keys is passed untempered to the input field.
+            </td></tr>
+
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr><th>Public Methods</th><th colspan="2"></th></tr>
+            <tr><td>destroy</td><td colspan="2">Removes the autoComplete instance and its bindings.</td></tr>
+        </table>
+
+        <h3 style="margin-top:.8em;border-top:1px solid #eee;padding-top:1.8em">Demos</h3>
+
+        <h4 style="margin-top:.5em">Searching in local data</h4>
+        <p>
+            This plugin was designed mainly with AJAX requests in mind, but it may be used with local data, as well.
+            Connecting the autocompletion suggester to an array of strings can be done in the source function like so:
+        </p>
+        <pre>
+$(<b>'input[name="q"]'</b>).autoComplete({
+    minChars: 2,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = [<b>'ActionScript'</b>, <b>'AppleScript'</b>, <b>'Asp'</b>, <i>...</i>];
+        var matches = [];
+        for (i=0; i&lt;choices.length; i++)
+            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+        suggest(matches);
+    }
+});</pre>
+        <p>
+            The source function iterates through an array of (local) choices and we return a new array containing all (lowercased) matches.
+            Simple as that.
+        </p>
+
+        <h4>AJAX requests</h4>
+        <p>
+            AJAX requests may come with very different requirements: JSON, JSONP, GET, POST, additionaly params, authentications, etc.
+            In order to keep the source code small while retaining full flexibility, we decided to only use a simple callback function as the source for suggestions.
+            Make your AJAX call inside this function and return matching suggestions with the response callback:
+        </p>
+        <pre>
+$(<b>'input[name="q"]'</b>).autoComplete({
+    source: function(term, response){
+        $.getJSON(<b>'/some/ajax/url/'</b>, { q: term }, function(data){ response(data); });
+    }
+});</pre>
+        <p>
+            The AJAX call in this example needs to return an array of strings.
+            The callback <span class="inline-code">response</span> must always be called, even if no suggestions are returned or if an error occured.
+            This ensures the correct state of the autoComplete instance.
+        </p>
+
+        <h4>Optimizing AJAX requests</h4>
+        <p>
+            All search results are cached by default and unnecessary requests are prevented in order to keep server load as low as possible.
+            To further reduce server impact, it's possible to abort unfinished AJAX requests before starting new ones:
+        </p>
+        <pre>
+$(<b>'input[name="q"]'</b>).autoComplete({
+    source: function(term, response){
+        try { xhr.abort(); } catch(e){}
+        var xhr = $.getJSON(<b>'/some/ajax/url/'</b>, { q: term }, function(data){ response(data); });
+    }
+});</pre>
+        <p>
+            By typing along, the user may trigger one AJAX request after the other.
+            With this little trick, we make sure that only the most current one actually gets executed - if not done so already.
+        </p>
+
+        <h4>Supplementary form data</h4>
+        <p>
+            If you need to send additional data along with the input field's text value,
+            you may create the appropriate hidden fields inside your source function.
+            You can also use the onSelect callback for tempering with the form's data before its submission.
+            To keep this plugin flexible and simple, there are no options readily available for these actions.
+        </p>
+
+        <br><br>
+        <p style="border-top:1px solid #eee;padding-top:30px">Please report any bugs and issues at the <a href="#">GitHub repositiory</a>.</p>
+        <p>This software is released as Open Source under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a> by <a href="http://pixabay.com/users/Simon/">Simon Steinberger / Pixabay.com</a>.</p>
+
+    </div>
+
+    <div style="background:#fafafa;border-top:1px solid #eee;padding:15px;font-size:.9em">
+        <div style="max-width:900px;margin:auto;padding:0 10px">
+            Released 2014 by <a href="http://pixabay.com/">Pixabay.com</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="jquery.auto-complete.js"></script>
+    <script>
+        $(function(){
+            $('#hero-demo').autoComplete({
+                minChars: 1,
+                source: function(term, suggest){
+                    term = term.toLowerCase();
+                    var choices = ['ActionScript', 'AppleScript', 'Asp', 'Assembly', 'BASIC', 'Batch', 'C', 'C++', 'CSS', 'Clojure', 'COBOL', 'ColdFusion', 'Erlang', 'Fortran', 'Groovy', 'Haskell', 'HTML', 'Java', 'JavaScript', 'Lisp', 'Perl', 'PHP', 'PowerShell', 'Python', 'Ruby', 'Scala', 'Scheme', 'SQL', 'TeX', 'XML'];
+                    var suggestions = [];
+                    for (i=0;i<choices.length;i++)
+                        if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                    suggest(suggestions);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
