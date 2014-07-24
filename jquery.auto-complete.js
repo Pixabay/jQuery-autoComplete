@@ -138,11 +138,11 @@
                             that.last_val = val;
                             clearTimeout(that.timer);
                             if (o.cache) {
-                                if (val in that.cache) { console.log('from cache'); suggest(that.cache[val]); return; }
+                                if (val in that.cache) { suggest(that.cache[val]); return; }
                                 // no requests if previous suggestions were empty
                                 for (i=1; i<val.length-o.minChars; i++) {
                                     var part = val.slice(0, val.length-i);
-                                    if (part in that.cache && !that.cache[part].length) { console.log('from cache'); suggest([]); return; }
+                                    if (part in that.cache && !that.cache[part].length) { suggest([]); return; }
                                 }
                             }
                             that.timer = setTimeout(function(){ o.source(val, suggest) }, o.delay);
