@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.0-beta
+	jQuery autoComplete v1.0.1
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -37,6 +37,7 @@
                     width: that.outerWidth()
                 });
             }
+            that.fixPosition();
             $(window).on('resize.autocomplete', that.fixPosition);
 
             that.fixScroll = function(next){
@@ -85,7 +86,6 @@
                     for (i=0;i<data.length;i++)
                         s += '<div class="autocomplete-suggestion" data-val="'+data[i]+'">'+data[i].replace(re, "<b>$1</b>")+'</div>';
                     that.sb.html(s).show();
-                    that.fixPosition();
                 }
                 else
                     that.sb.hide();
