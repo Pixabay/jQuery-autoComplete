@@ -1,0 +1,29 @@
+{
+	"name": "auto-complete",
+	"title": "autoComplete",
+	"description": "An extremely lightweight completion suggester plugin for jQuery.",
+	"version": "1.0.1",
+	"dependencies": {
+		"jquery": ">=1.7"
+	},
+	"keywords": [
+		"autocomplete",
+		"suggest",
+		"autosuggest",
+		"suggester",
+		"jQuery"
+	],
+	"author": {
+		"name": "Simon Steinberger",
+		"url": "http://pixabay.com/users/Simon/",
+		"email": "simon@pixabay.com"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://www.opensource.org/licenses/mit-license.php"
+		}
+	],
+	"homepage": "http://goodies.pixabay.com/jquery/auto-complete/demo.html",
+	"demo": "http://goodies.pixabay.com/jquery/auto-complete/demo.html"
+}
