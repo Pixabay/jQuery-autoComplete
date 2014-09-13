@@ -37,7 +37,7 @@
                     width: that.outerWidth()
                 });
             }
-            that.fixPosition();
+            setTimeout(that.fixPosition, 100);
             $(window).on('resize.autocomplete', that.fixPosition);
 
             that.fixScroll = function(next){
