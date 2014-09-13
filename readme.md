@@ -22,6 +22,10 @@ http://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.2 - 2014/09/13
+
+* Another fix of the auto-positioning method on init.
+
 ### Version 1.0.1 - 2014/08/10
 
 * Fixed auto positioning of suggestions container on init.
