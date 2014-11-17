@@ -22,6 +22,11 @@ http://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.3 - 2014/11/17
+
+* Added menuClass option for custom styling multiple autoComplete dropdowns on one page.
+* Fixed destroy method.
+
 ### Version 1.0.2 - 2014/09/13
 
 * Another fix of the auto-positioning method on init.

@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.2
+	jQuery autoComplete v1.0.3
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -7,7 +7,7 @@
 
 (function($){
     $.fn.autoComplete = function(options){
-        var o = $.extend({ source: null, minChars: 3, delay: 100, cache: true, onSelect: function(term){} }, options);
+        var o = $.extend({ source: '', minChars: 3, delay: 100, cache: true, menuClass: '', onSelect: function(term){} }, options);
 
         // public methods
         if (typeof options == 'string') {
@@ -16,8 +16,12 @@
                 if (options == 'destroy') {
                     $(window).off('resize.autocomplete', that.fixPosition);
                     that.off('keydown.autocomplete keyup.autocomplete');
-                    that.removeAttr('autocomplete');
-                    $(that.sb).off('mouseleave.autocomplete mouseenter.autocomplete mousedown.autocomplete mousedown.autocomplete').remove();
+                    if (that.data('autocomplete'))
+                        that.attr('autocomplete', that.data('autocomplete'));
+                    else
+                        that.removeAttr('autocomplete');
+                    $(that.data('el')).remove();
+                    that.removeData('el').removeData('autocomplete');
                 }
             });
             return;
@@ -25,7 +29,8 @@
 
         return this.each(function(){
             var that = $(this);
-            that.sb = $('<div class="autocomplete-suggestions"></div>');
+            that.sb = $('<div class="autocomplete-suggestions"></div>').addClass(o.menuClass);
+            that.data('el', that.sb).data('autocomplete', that.attr('autocomplete'));
             that.attr('autocomplete', 'off');
             that.cache = {};
             that.last_val = '';

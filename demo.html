@@ -108,8 +108,8 @@ $(selector).autoComplete({key1: value1, key2: value2});
         <h3>Settings</h3>
         <table>
             <tr><th>Property</th><th>Default</th><th>Description</th></tr>
-            <tr><td>source(term, response)</td><td><i>null</i></td><td>
-                A callback function to connect any data source to autoComplete. The callback gets two arguments:
+            <tr><td>source(term, response)</td><td><i>''</i></td><td>
+                Required callback function to connect any data source to autoComplete. The callback gets two arguments:
                 <ul>
                     <li><span class="inline-code">term</span>, which refers to the value currently in the text input.</li>
                     <li>A <span class="inline-code">response</span> callback, which expects a single argument:
@@ -122,6 +122,11 @@ $(selector).autoComplete({key1: value1, key2: value2});
             <tr><td>minChars</td><td>2</td><td>Minimum number of characters (>=1) a user must type before a search is performed.</td></tr>
             <tr><td>delay</td><td>0</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
             <tr><td>cache</td><td><i>true</i></td><td>Determines if performed searches should be cached.</td></tr>
+            <tr>
+                <td>menuClass</td><td><i>''</i></td>
+                <td>Custom class/es that get/s added to the dropdown menu container.
+                <br>Example: <span class="inline-code">{ menuClass: 'class1 class2' }</span></td>
+            </tr>
 
             <tr><td colspan="3">&nbsp;</td></tr>
             <tr><th>Callbacks</th><th colspan="2"></th></tr>
@@ -203,8 +208,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
         </p>
 
         <div style="margin:60px 0 40px;overflow:hidden;border-top:1px solid #eee;padding-top:40px">
-            <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-autoComplete&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
-            <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-autoComplete&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+            <span id="github_social"></span>
             <div style="float:left;margin-right:5px">
                 <a href="#" data-width="70" class="twitter-share-button" data-text="jQuery autoComplete Plugin"></a>
             </div>
@@ -244,9 +248,15 @@ $(<b>'input[name="q"]'</b>).autoComplete({
             });
         });
 
-        (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
-        (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+        if (~window.location.href.indexOf('http')) {
+            (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+            (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+            $('#github_social').html('\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-autoComplete&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+                <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-autoComplete&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
+            ');
+        }
     </script>
 </body>
 </html>
