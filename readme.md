@@ -22,6 +22,10 @@ http://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.4 - 2014/11/20
+
+* Added renderItem function options allowing custom data passing and autoComplete rendering
+
 ### Version 1.0.3 - 2014/11/17
 
 * Added menuClass option for custom styling multiple autoComplete dropdowns on one page.
