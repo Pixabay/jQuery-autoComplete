@@ -7,7 +7,19 @@
 
 (function($){
     $.fn.autoComplete = function(options){
-        var o = $.extend({ source: '', minChars: 3, delay: 100, cache: true, menuClass: '', onSelect: function(term){} }, options);
+        var defaultO = {
+                source: '',
+                minChars: 3,
+                delay: 100,
+                cache: true,
+                menuClass: '',
+                onSelect: function(term){},
+                renderItem: function (item, search) {
+                    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+                    return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+                }
+            },
+            o = $.extend(defaultO, options);
 
         // public methods
         if (typeof options == 'string') {
@@ -87,9 +99,9 @@
                 var val = that.val();
                 that.cache[val] = data;
                 if (data.length && val.length >= o.minChars) {
-                    var s = '', re = new RegExp("(" + val.split(' ').join('|') + ")", "gi");
+                    var s = '';
                     for (i=0;i<data.length;i++)
-                        s += '<div class="autocomplete-suggestion" data-val="'+data[i]+'">'+data[i].replace(re, "<b>$1</b>")+'</div>';
+                        s += o.renderItem(data[i], val);
                     that.sb.html(s).show();
                 }
                 else
