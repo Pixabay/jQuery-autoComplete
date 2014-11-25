@@ -127,6 +127,20 @@ $(selector).autoComplete({key1: value1, key2: value2});
                 <td>Custom class/es that get/s added to the dropdown menu container.
                 <br>Example: <span class="inline-code">{ menuClass: 'class1 class2' }</span></td>
             </tr>
+            <tr>
+                <td>renderItem</td><td><i>function</i></td>
+                <td>
+                    <p>A function that gives you control over how suggestions are displayed. Default:</p>
+<pre>
+function (item, search){
+    var re = new RegExp(&quot;(&quot; + search.split(' ').join('|') + &quot;)&quot;, &quot;gi&quot;);
+    return '&lt;div class=&quot;autocomplete-suggestion&quot; data-val=&quot;' + item + '&quot;&gt;'\
+        + item.replace(re, &quot;&lt;b&gt;$1&lt;/b&gt;&quot;) + '&lt;/div&gt;';
+}
+</pre>
+                    <a href="https://github.com/Pixabay/jQuery-autoComplete/pull/3">Example of the original pull request</a>
+                </td>
+            </tr>
 
             <tr><td colspan="3">&nbsp;</td></tr>
             <tr><th>Callbacks</th><th colspan="2"></th></tr>
