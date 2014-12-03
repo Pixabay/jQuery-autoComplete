@@ -24,7 +24,7 @@
                     that.removeData('el').removeData('autocomplete');
                 }
             });
-            return;
+            return this;
         }
 
         return this.each(function(){
