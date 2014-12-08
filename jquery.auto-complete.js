@@ -5,6 +5,14 @@
 	License: http://www.opensource.org/licenses/mit-license.php
 */
 
+function size(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
 (function($){
     $.fn.autoComplete = function(options){
         var o = $.extend({}, $.fn.autoComplete.defaults, options);
@@ -73,7 +81,7 @@
             that.sc.on('mousedown.autocomplete', '.autocomplete-suggestion', function (){
                 var v = $(this).data('val');
                 that.val(v);
-                o.onSelect(v);
+                o.onSelect(v, $(this));
                 setTimeout(function(){ that.focus(); }, 10);
             });
 
@@ -82,13 +90,13 @@
                 that.sc.hide();
             });
 
-            function suggest(data){
+            function suggest(data)
+            {
                 var val = that.val();
                 that.cache[val] = data;
-                if (data.length && val.length >= o.minChars) {
-                    var s = '', re = new RegExp("(" + val.split(' ').join('|') + ")", "gi");
-                    for (i=0;i<data.length;i++)
-                        s += '<div class="autocomplete-suggestion" data-val="'+data[i]+'">'+data[i].replace(re, "<b>$1</b>")+'</div>';
+                if (size(data) && val.length >= o.minChars)
+                {
+                    var s = o.renderItem(data, val);
                     that.sc.html(s);
                     that.updateSC(0);
                 }
@@ -168,9 +176,12 @@
         cache: 1,
         menuClass: '',
         renderItem: function (item, search){
+            var s = "";
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
-            return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
+            for( var e in item)
+                s += '<div class="autocomplete-suggestion" data-val="' + item[e] + '">' + item[e].replace(re, "<b>$1</b>") + '</div>';
+            return s;
         },
-        onSelect: function(term){}
+        onSelect: function(term, element){}
     };
 }(jQuery));
