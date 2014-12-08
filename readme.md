@@ -22,6 +22,10 @@ http://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.5 - 2014/11/26
+
+* Fixed renderItem method (https://github.com/Pixabay/jQuery-autoComplete/pull/4)
+
 ### Version 1.0.4 - 2014/11/26
 
 * Added renderItem function options allowing custom data passing and autoComplete rendering (https://github.com/Pixabay/jQuery-autoComplete/pull/3).

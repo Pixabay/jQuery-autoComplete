@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.4
+	jQuery autoComplete v1.0.5
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -86,9 +86,8 @@
                 var val = that.val();
                 that.cache[val] = data;
                 if (data.length && val.length >= o.minChars) {
-                    var s = '', re = new RegExp("(" + val.split(' ').join('|') + ")", "gi");
-                    for (i=0;i<data.length;i++)
-                        s += '<div class="autocomplete-suggestion" data-val="'+data[i]+'">'+data[i].replace(re, "<b>$1</b>")+'</div>';
+                    var s = '';
+                    for (i=0;i<data.length;i++) s += o.renderItem(data[i], val);
                     that.sc.html(s);
                     that.updateSC(0);
                 }
