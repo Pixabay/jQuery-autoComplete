@@ -97,7 +97,7 @@
 
             that.on('keydown.autocomplete', function(e){
                 // down
-                if (e.which == 40) {
+                if (e.which == 40 && that.sc.html()) {
                     var next, sel = $('.autocomplete-suggestion.selected', that.sc);
                     if (!sel.length) {
                         next = $('.autocomplete-suggestion', that.sc).first();
@@ -114,7 +114,7 @@
                     return false;
                 }
                 // up
-                else if (e.which == 38) {
+                else if (e.which == 38 && that.sc.html()) {
                     var next, sel = $('.autocomplete-suggestion.selected', that.sc);
                     if (!sel.length) {
                         next = $('.autocomplete-suggestion', that.sc).last();
@@ -130,7 +130,7 @@
                     that.updateSC(0, next);
                     return false;
                 }
-                // up
+                // esc
                 else if (e.which == 27) that.val(that.last_val).sc.hide();
             });
 
