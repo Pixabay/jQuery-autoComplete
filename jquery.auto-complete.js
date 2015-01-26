@@ -133,6 +133,15 @@
                 }
                 // esc
                 else if (e.which == 27) that.val(that.last_val).sc.hide();
+                // enter
+                else if (e.which == 13) {
+                    var sel = $('.autocomplete-suggestion.selected', that.sc),
+                        v = sel.data('val');
+
+                    that.val(v);
+                    o.onSelect(v, sel);
+                    setTimeout(function(){ that.focus(); }, 10);
+                }
             });
 
             that.on('keyup.autocomplete', function(e){
