@@ -71,7 +71,6 @@
             });
 
             that.sc.on('mousedown.autocomplete', '.autocomplete-suggestion', function (){
-                debugger;
                 var renderedItem = $(this),
                     v = renderedItem.data('val');
                 that.val(v);
