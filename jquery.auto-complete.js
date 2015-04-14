@@ -78,7 +78,8 @@
             });
 
             that.blur(function(){
-                if ($('.autocomplete-suggestions:hover').length === 0) { // ***
+                try { over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // ***
+                if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
                 }
