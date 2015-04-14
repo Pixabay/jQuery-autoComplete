@@ -77,9 +77,16 @@
                 setTimeout(function(){ that.focus(); }, 10);
             });
 
-            that.blur(function(e){
-                that.last_val = that.val();
-                that.sc.hide();
+            that.blur(function(){
+                if ($('.autocomplete-suggestions:hover').length === 0) { // ***
+                    that.last_val = that.val();
+                    that.sc.hide();
+                }
+            });
+
+            // IE hack ***: input looses focus when clicking scrollbars in suggestions container
+            that.sc.focus(function(){
+                that.focus();
             });
 
             function suggest(data){
