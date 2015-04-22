@@ -22,9 +22,13 @@ http://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.6 - 2015/04/22
+
+* Fixed #7: Firing onSelect callback on enter and passing event and selected suggestion item as additional arguments.
+
 ### Version 1.0.5 - 2014/11/26
 
-* Fixed renderItem method (https://github.com/Pixabay/jQuery-autoComplete/pull/4)
+* Fixed #4: renderItem bugfix
 
 ### Version 1.0.4 - 2014/11/26
 

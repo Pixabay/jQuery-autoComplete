@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.5
+	jQuery autoComplete v1.0.6
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -70,11 +70,11 @@
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mousedown.autocomplete', '.autocomplete-suggestion', function (){
-                var v = $(this).data('val');
+            that.sc.on('mousedown.autocomplete', '.autocomplete-suggestion', function (e){
+                var item = $(this), v = item.data('val');
                 that.val(v);
-                o.onSelect(v);
-                setTimeout(function(){ that.focus(); }, 10);
+                o.onSelect(e, v, item);
+                setTimeout(function(){ that.focus().sc.hide(); }, 10);
             });
 
             that.blur(function(){
@@ -140,6 +140,11 @@
                 }
                 // esc
                 else if (e.which == 27) that.val(that.last_val).sc.hide();
+                // enter
+                else if (e.which == 13) {
+                    var sel = $('.autocomplete-suggestion.selected', that.sc);
+                    if (sel.length) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.focus().sc.hide(); }, 10); }
+                }
             });
 
             that.on('keyup.autocomplete', function(e){
@@ -178,6 +183,6 @@
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
             return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
         },
-        onSelect: function(term){}
+        onSelect: function(e, term, item){}
     };
 }(jQuery));

@@ -138,14 +138,17 @@ function (item, search){
         + item.replace(re, &quot;&lt;b&gt;$1&lt;/b&gt;&quot;) + '&lt;/div&gt;';
 }
 </pre>
-                    <a href="https://github.com/Pixabay/jQuery-autoComplete/pull/3">Example of the original pull request</a>
+                    <a href="https://github.com/Pixabay/jQuery-autoComplete/pull/3">Example use scenario on GitHub</a>
                 </td>
             </tr>
 
             <tr><td colspan="3">&nbsp;</td></tr>
             <tr><th>Callbacks</th><th colspan="2"></th></tr>
-            <tr><td>onSelect(term)</td><td colspan="2">
-                A callback function that fires when a suggestion is <b>selected by mouse click</b>. <span class="inline-code">term</span> is the selected value.
+            <tr><td>onSelect(event, term, item)</td><td colspan="2">
+                A callback function that fires when a suggestion is <b>selected by mouse click or pressing enter</b>.
+                <span class="inline-code">event</span> is the event that triggered the callback,
+                <span class="inline-code">term</span> is the selected value.
+                and <span class="inline-code">item</span> is the item rendered by the renderItem function.
                 onSelect does <b>not</b> fire when pressing <i>Enter</i>, <i>Tab</i>, and other control keys that are passed directly to the input field.
             </td></tr>
 
