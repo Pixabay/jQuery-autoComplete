@@ -108,7 +108,7 @@ $(selector).autoComplete({key1: value1, key2: value2});
         <h3>Settings</h3>
         <table>
             <tr><th>Property</th><th>Default</th><th>Description</th></tr>
-            <tr><td>source(term, response)</td><td><i>''</i></td><td>
+            <tr><td>source(term, response)</td><td><i>null</i></td><td>
                 Required callback function to connect any data source to autoComplete. The callback gets two arguments:
                 <ul>
                     <li><span class="inline-code">term</span>, which refers to the value currently in the text input.</li>
@@ -119,8 +119,8 @@ $(selector).autoComplete({key1: value1, key2: value2});
                     </li>
                 </ul>
             </td></tr>
-            <tr><td>minChars</td><td>2</td><td>Minimum number of characters (>=1) a user must type before a search is performed.</td></tr>
-            <tr><td>delay</td><td>0</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
+            <tr><td>minChars</td><td>3</td><td>Minimum number of characters (>=1) a user must type before a search is performed.</td></tr>
+            <tr><td>delay</td><td>100</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
             <tr><td>cache</td><td><i>true</i></td><td>Determines if performed searches should be cached.</td></tr>
             <tr>
                 <td>menuClass</td><td><i>''</i></td>
