@@ -120,7 +120,7 @@ $(selector).autoComplete({key1: value1, key2: value2});
                 </ul>
             </td></tr>
             <tr><td>minChars</td><td>3</td><td>Minimum number of characters (>=1) a user must type before a search is performed.</td></tr>
-            <tr><td>delay</td><td>100</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
+            <tr><td>delay</td><td>150</td><td>The delay in milliseconds between when a keystroke occurs and when a search is performed. A zero-delay is more responsive, but can produce a lot of load.</td></tr>
             <tr><td>cache</td><td><i>true</i></td><td>Determines if performed searches should be cached.</td></tr>
             <tr>
                 <td>menuClass</td><td><i>''</i></td>
@@ -138,7 +138,6 @@ function (item, search){
         + item.replace(re, &quot;&lt;b&gt;$1&lt;/b&gt;&quot;) + '&lt;/div&gt;';
 }
 </pre>
-                    <a href="https://github.com/Pixabay/jQuery-autoComplete/pull/3">Example use scenario on GitHub</a>
                 </td>
             </tr>
 
@@ -216,12 +215,39 @@ $(<b>'input[name="q"]'</b>).autoComplete({
             With this little trick, we make sure that only the most current one actually gets executed - if not done so already.
         </p>
 
-        <h4>Supplementary form data</h4>
+        <h4>Advanced suggestions handling and custom layout</h4>
         <p>
-            If you need to send additional data along with the input field's text value,
-            you may create the appropriate hidden fields inside your source function.
-            You can also use the onSelect callback for tempering with the form's data before its submission.
-            To keep this plugin flexible and simple, there are no options readily available for these actions.
+            By making use of the <span class="inline-code">renderItem()</span> function, it's possible to turn the autocompleter into an item suggester:
+        <p>
+        <form onsubmit="$('#advanced-demo').blur().focus();return false;" class="pure-form" style="margin:30px 0 40px">
+            <input id="advanced-demo" autofocus type="text" name="q" placeholder="Countries or language codes ..." style="width:100%;max-width:600px;outline:0">
+        </form>
+        </p>
+            While typing country names or language codes, a list of matching suggestions is displayed. E.g. typing "de" will show "Germany" as a suggestion, because "de" is the language code for German.
+            Source code for this example:
+        <p>
+        <pre>
+$(<b>'input[name="q"]'</b>).autoComplete({
+    minChars: 1,
+    source: function(term, suggest){
+        term = term.toLowerCase();
+        var choices = [[<b>'Australia'</b>, <b>'au'</b>], [<b>'Austria'</b>, <b>'at'</b>], [<b>'Brasil'</b>, <b>'br'</b>], ...];
+        var suggestions = [];
+        for (i=0;i&lt;choices.length;i++)
+            if (~(choices[i][0]+<b>' '</b>+choices[i][1]).toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+        suggest(suggestions);
+    },
+    renderItem: function (item, search){
+        var re = new RegExp(<b>"("</b> + search.split(<b>' '</b>).join(<b>'|'</b>) + <b>")"</b>, <b>"gi"</b>);
+        return <b>'&lt;div class="autocomplete-suggestion" data-langname="'</b>+item[0]+<b>'" data-lang="'</b>+item[1]+<b>'" data-val="'</b>+search+<b>'">&lt;img src="img/'</b>+item[1]+<b>'.png"&gt; '</b>+item[0].replace(re, <b>"&lt;b&gt;$1&lt;/b&gt;"</b>)+<b>'&lt;/div&gt;'</b>;
+    },
+    onSelect: function(e, term, item){
+        alert(<b>'Item "'</b>+item.data(<b>'langname'</b>)+<b>' ('</b>+item.data(<b>'lang'</b>)+<b>')" selected by '</b>+(e.type == <b>'keydown'</b> ? <b>'pressing enter'</b> : <b>'mouse click'</b>)+<b>'.'</b>);
+    }
+});</pre>
+        </p>
+            In this case, autocompleting the text field is not desired, so we turn it off by setting <span class="inline-code">data-val=&quot;'+search+'&quot;</span> in the <span class="inline-code">renderItem()</span> function.
+            However, when choosing an item, the <span class="inline-code">onSelect()</span> callback returns all required information.
         </p>
 
         <div style="margin:60px 0 40px;overflow:hidden;border-top:1px solid #eee;padding-top:40px">
@@ -262,6 +288,24 @@ $(<b>'input[name="q"]'</b>).autoComplete({
                     for (i=0;i<choices.length;i++)
                         if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
                     suggest(suggestions);
+                }
+            });
+            $('#advanced-demo').autoComplete({
+                minChars: 1,
+                source: function(term, suggest){
+                    term = term.toLowerCase();
+                    var choices = [['Australia', 'au'], ['Austria', 'at'], ['Brasil', 'br'], ['Bulgaria', 'bg'], ['Canada', 'ca'], ['China', 'cn'], ['Czech Republic', 'cz'], ['Denmark', 'dk'], ['Finland', 'fi'], ['France', 'fr'], ['Germany', 'de'], ['Hungary', 'hu'], ['India', 'in'], ['Italy', 'it'], ['Japan', 'ja'], ['Netherlands', 'nl'], ['Norway', 'no'], ['Portugal', 'pt'], ['Romania', 'ro'], ['Russia', 'ru'], ['Spain', 'es'], ['Swiss', 'ch'], ['Turkey', 'tr'], ['USA', 'us']];
+                    var suggestions = [];
+                    for (i=0;i<choices.length;i++)
+                        if (~(choices[i][0]+' '+choices[i][1]).toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                    suggest(suggestions);
+                },
+                renderItem: function (item, search){
+                    var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+                    return '<div class="autocomplete-suggestion" data-langname="'+item[0]+'" data-lang="'+item[1]+'" data-val="'+search+'"><img src="img/'+item[1]+'.png"> '+item[0].replace(re, "<b>$1</b>")+'</div>';
+                },
+                onSelect: function(e, term, item){
+                    alert('Item "'+item.data('langname')+' ('+item.data('lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter' : 'mouse click')+'.');
                 }
             });
         });
