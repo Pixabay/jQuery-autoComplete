@@ -15,7 +15,7 @@
                 var that = $(this);
                 if (options == 'destroy') {
                     $(window).off('resize.autocomplete', that.updateSC);
-                    that.off('keydown.autocomplete keyup.autocomplete');
+                    that.off('blur.autocomplete focus.autocomplete keydown.autocomplete keyup.autocomplete');
                     if (that.data('autocomplete'))
                         that.attr('autocomplete', that.data('autocomplete'));
                     else
@@ -61,29 +61,31 @@
 
             that.sc.appendTo('body');
 
-            that.sc.on('mouseleave.autocomplete', '.autocomplete-suggestion', function (){
+            that.sc.on('mouseleave', '.autocomplete-suggestion', function (){
                 $('.autocomplete-suggestion.selected').removeClass('selected');
             });
 
-            that.sc.on('mouseenter.autocomplete', '.autocomplete-suggestion', function (){
+            that.sc.on('mouseenter', '.autocomplete-suggestion', function (){
                 $('.autocomplete-suggestion.selected').removeClass('selected');
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mousedown.autocomplete', '.autocomplete-suggestion', function (e){
+            that.sc.on('mousedown', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
                 that.val(v);
                 o.onSelect(e, v, item);
                 setTimeout(function(){ that.focus().sc.hide(); }, 10);
             });
 
-            that.blur(function(){
+            that.on('blur.autocomplete', function(){
                 try { over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // ***
                 if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
                 }
             });
+
+            that.on('focus.autocomplete', function(){ if (!o.minChars) { that.last_val = '\n'; that.trigger('keyup.autocomplete'); } });
 
             // IE hack ***: input looses focus when clicking scrollbars in suggestions container
             that.sc.focus(function(){
