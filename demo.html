@@ -245,7 +245,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
         alert(<b>'Item "'</b>+item.data(<b>'langname'</b>)+<b>' ('</b>+item.data(<b>'lang'</b>)+<b>')" selected by '</b>+(e.type == <b>'keydown'</b> ? <b>'pressing enter'</b> : <b>'mouse click'</b>)+<b>'.'</b>);
     }
 });</pre>
-        </p>
+        <p>
             In this case, autocompleting the text field is not desired, so we turn it off by setting <span class="inline-code">data-val=&quot;'+search+'&quot;</span> in the <span class="inline-code">renderItem()</span> function.
             However, when choosing an item, the <span class="inline-code">onSelect()</span> callback returns all required information.
         </p>
