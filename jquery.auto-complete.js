@@ -20,8 +20,8 @@
                         that.attr('autocomplete', that.data('autocomplete'));
                     else
                         that.removeAttr('autocomplete');
-                    $(that.data('el')).remove();
-                    that.removeData('el').removeData('autocomplete');
+                    $(that.data('sc')).remove();
+                    that.removeData('sc').removeData('autocomplete');
                 }
             });
             return this;
@@ -31,7 +31,7 @@
             var that = $(this);
             // sc = 'suggestions container'
             that.sc = $('<div class="autocomplete-suggestions '+o.menuClass+'"></div>');
-            that.data('el', that.sc).data('autocomplete', that.attr('autocomplete'));
+            that.data('sc', that.sc).data('autocomplete', that.attr('autocomplete'));
             that.attr('autocomplete', 'off');
             that.cache = {};
             that.last_val = '';
