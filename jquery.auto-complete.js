@@ -97,7 +97,7 @@
                 that.cache[val] = data;
                 if (data.length && val.length >= o.minChars) {
                     var s = '';
-                    for (i=0;i<data.length;i++) s += o.renderItem(data[i], val);
+                    for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
                     that.sc.html(s);
                     that.updateSC(0);
                 }
@@ -106,35 +106,15 @@
             }
 
             that.on('keydown.autocomplete', function(e){
-                // down
-                if (e.which == 40 && that.sc.html()) {
+                // down (40), up (38)
+                if ((e.which == 40 || e.which == 38) && that.sc.html()) {
                     var next, sel = $('.autocomplete-suggestion.selected', that.sc);
                     if (!sel.length) {
-                        next = $('.autocomplete-suggestion', that.sc).first();
+                        next = (e.which == 40) ? $('.autocomplete-suggestion', that.sc).first() : $('.autocomplete-suggestion', that.sc).last();
                         that.val(next.addClass('selected').data('val'));
                     } else {
-                        next = sel.next('.autocomplete-suggestion');
-                        if (next.length) {
-                            sel.removeClass('selected');
-                            that.val(next.addClass('selected').data('val'));
-                        }
-                        else { sel.removeClass('selected'); that.val(that.last_val); next = 0; }
-                    }
-                    that.updateSC(0, next);
-                    return false;
-                }
-                // up
-                else if (e.which == 38 && that.sc.html()) {
-                    var next, sel = $('.autocomplete-suggestion.selected', that.sc);
-                    if (!sel.length) {
-                        next = $('.autocomplete-suggestion', that.sc).last();
-                        that.val(next.addClass('selected').data('val'));
-                    } else {
-                        var next = sel.prev('.autocomplete-suggestion');
-                        if (next.length) {
-                            sel.removeClass('selected');
-                            that.val(next.addClass('selected').data('val'));
-                        }
+                        next = (e.which == 40) ? sel.next('.autocomplete-suggestion') : sel.prev('.autocomplete-suggestion');
+                        if (next.length) { sel.removeClass('selected'); that.val(next.addClass('selected').data('val')); }
                         else { sel.removeClass('selected'); that.val(that.last_val); next = 0; }
                     }
                     that.updateSC(0, next);
@@ -159,7 +139,7 @@
                             if (o.cache) {
                                 if (val in that.cache) { suggest(that.cache[val]); return; }
                                 // no requests if previous suggestions were empty
-                                for (i=1; i<val.length-o.minChars; i++) {
+                                for (var i=1; i<val.length-o.minChars; i++) {
                                     var part = val.slice(0, val.length-i);
                                     if (part in that.cache && !that.cache[part].length) { suggest([]); return; }
                                 }
