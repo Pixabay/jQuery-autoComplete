@@ -70,27 +70,24 @@
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mousedown', '.autocomplete-suggestion', function (e){
+            that.sc.on('mouseup', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
-                that.val(v);
-                o.onSelect(e, v, item);
-                setTimeout(function(){ that.focus().sc.hide(); }, 10);
-            });
-
-            that.on('blur.autocomplete', function(){
-                try { over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // ***
-                if (!over_sb) {
-                    that.last_val = that.val();
-                    that.sc.hide();
+                if (v || ~e.target.className.indexOf('autocomplete-suggestion')) { // else outside click
+                    that.val(v);
+                    o.onSelect(e, v, item);
+                    that.focus().sc.hide();
                 }
             });
 
-            that.on('focus.autocomplete', function(){ if (!o.minChars) { that.last_val = '\n'; that.trigger('keyup.autocomplete'); } });
-
-            // IE hack ***: input looses focus when clicking scrollbars in suggestions container
-            that.sc.focus(function(){
-                that.focus();
+            that.on('blur.autocomplete', function(){
+                try { over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // IE7 fix :hover
+                if (!over_sb) {
+                    that.last_val = that.val();
+                    that.sc.hide();
+                } else that.focus();
             });
+
+            if (!o.minChars) that.on('focus.autocomplete', function(){ that.last_val = '\n'; that.trigger('keyup.autocomplete'); });
 
             function suggest(data){
                 var val = that.val();
