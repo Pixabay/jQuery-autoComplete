@@ -72,7 +72,7 @@
 
             that.sc.on('mouseup', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
-                if (v || ~e.target.className.indexOf('autocomplete-suggestion')) { // else outside click
+                if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
                     o.onSelect(e, v, item);
                     that.focus().sc.hide();
