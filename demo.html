@@ -46,18 +46,8 @@
         .button-lg { margin: 5px 0; padding: .65em 1.6em; font-size: 105%; }
 
         input[type="text"] { border-radius: 0 !important; }
-
-        /* autoComplete styles */
-        .autocomplete-suggestions {
-            text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
-
-            /* core styles should not be changed */
-            position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
-        }
-        .autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; font-size: 1.02em; color: #333; }
-        .autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
-        .autocomplete-suggestion.selected { background: #f0f0f0; }
     </style>
+    <link rel="stylesheet" href="jquery.auto-complete.css">
 </head>
 <body>
     <div style="max-width:900px;padding:0 10px;margin:40px auto;text-align:center">
@@ -98,7 +88,7 @@
 
         <h3>Usage</h3>
         <p>
-            Include the JavaScript file <span class="inline-code">jquery.auto-complete.min.js</span> after loading the jQuery library.
+            Include the stylesheet <span class="inline-code">jquery.auto-complete.css</span> in the <span class="inline-code">&lt;head&gt;</span> section of your page - and the JavaScript file <span class="inline-code">jquery.auto-complete.min.js</span> after loading the jQuery library.
             autoComplete accepts settings from an object of key/value pairs, and can be assigned to any text input field.
         </p>
         <pre>
