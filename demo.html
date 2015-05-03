@@ -194,10 +194,11 @@ $(<b>'input[name="q"]'</b>).autoComplete({
             To further reduce server impact, it's possible to abort unfinished AJAX requests before starting new ones:
         </p>
         <pre>
+var xhr;
 $(<b>'input[name="q"]'</b>).autoComplete({
     source: function(term, response){
         try { xhr.abort(); } catch(e){}
-        var xhr = $.getJSON(<b>'/some/ajax/url/'</b>, { q: term }, function(data){ response(data); });
+        xhr = $.getJSON(<b>'/some/ajax/url/'</b>, { q: term }, function(data){ response(data); });
     }
 });</pre>
         <p>
