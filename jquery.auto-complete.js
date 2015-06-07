@@ -127,7 +127,7 @@
             });
 
             that.on('keyup.autocomplete', function(e){
-                if (!~$.inArray(e.which, [27, 38, 40, 37, 39])) {
+                if (!~$.inArray(e.which, [13, 27, 38, 40, 37, 39])) {
                     var val = that.val();
                     if (val.length >= o.minChars) {
                         if (val != that.last_val) {
