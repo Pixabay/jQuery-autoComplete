@@ -84,7 +84,7 @@
                 if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
-                } else that.focus();
+                } else if (!that.is(':focus')) that.focus();
             });
 
             if (!o.minChars) that.on('focus.autocomplete', function(){ that.last_val = '\n'; that.trigger('keyup.autocomplete'); });
