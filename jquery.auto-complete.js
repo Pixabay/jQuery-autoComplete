@@ -75,7 +75,7 @@
                 if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
                     o.onSelect(e, v, item);
-                    that.focus().sc.hide();
+                    that.sc.hide();
                 }
             });
 
@@ -122,7 +122,7 @@
                 // enter
                 else if (e.which == 13) {
                     var sel = $('.autocomplete-suggestion.selected', that.sc);
-                    if (sel.length) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.focus().sc.hide(); }, 10); }
+                    if (sel.length) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 10); }
                 }
             });
 
