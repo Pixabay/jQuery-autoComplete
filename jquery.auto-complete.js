@@ -141,7 +141,7 @@
                                     if (part in that.cache && !that.cache[part].length) { suggest([]); return; }
                                 }
                             }
-                            that.timer = setTimeout(function(){ o.source(val, suggest) }, o.delay);
+                            that.timer = setTimeout(function(){ o.source(val, suggest, that) }, o.delay);
                         }
                     } else {
                         that.last_val = val;
