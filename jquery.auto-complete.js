@@ -70,7 +70,7 @@
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mouseup', '.autocomplete-suggestion', function (e){
+            that.sc.on('mousedown', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
                 if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
@@ -85,7 +85,7 @@
                     that.last_val = that.val();
                     that.sc.hide();
                     setTimeout(function(){ that.sc.hide(); }, 350); // hide suggestions on fast input
-                } else if (!that.is(':focus')) that.focus();
+                } else if (!that.is(':focus')) setTimeout(function(){ that.focus(); }, 20);
             });
 
             if (!o.minChars) that.on('focus.autocomplete', function(){ that.last_val = '\n'; that.trigger('keyup.autocomplete'); });

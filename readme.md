@@ -26,6 +26,7 @@ https://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 * Fixed #29: Select item with tab.
 * Fixed #33: Suggestions not hidden on fast input.
+* Fixed incorrect selection by mouse when suggestions are scrolled down.
 
 ### Version 1.0.6 - 2015/04/22
 
