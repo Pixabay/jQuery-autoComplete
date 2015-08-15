@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.6
+	jQuery autoComplete v1.0.7
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -84,6 +84,7 @@
                 if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
+                    setTimeout(function(){ that.sc.hide(); }, 350); // fix #33
                 } else if (!that.is(':focus')) that.focus();
             });
 
@@ -119,10 +120,10 @@
                 }
                 // esc
                 else if (e.which == 27) that.val(that.last_val).sc.hide();
-                // enter
-                else if (e.which == 13) {
+                // enter or tab
+                else if (e.which == 13 || e.which == 9) {
                     var sel = $('.autocomplete-suggestion.selected', that.sc);
-                    if (sel.length) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 10); }
+                    if (sel.length && that.sc.is(':visible')) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 20); }
                 }
             });
 

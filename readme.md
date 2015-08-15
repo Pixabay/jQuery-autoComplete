@@ -22,6 +22,11 @@ https://goodies.pixabay.com/jquery/auto-complete/demo.html
 
 ## Changelog
 
+### Version 1.0.7 - 2015/08/15
+
+* Fixed #29: Select item with tab.
+* Fixed #33: Suggestions not hidden on fast input.
+
 ### Version 1.0.6 - 2015/04/22
 
 * Fixed #7: Firing onSelect callback on enter and passing event and selected suggestion item as additional arguments.

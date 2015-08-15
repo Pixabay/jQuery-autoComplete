@@ -133,11 +133,10 @@ function (item, search){
             <tr><td colspan="3">&nbsp;</td></tr>
             <tr><th>Callbacks</th><th colspan="2"></th></tr>
             <tr><td>onSelect(event, term, item)</td><td colspan="2">
-                A callback function that fires when a suggestion is <b>selected by mouse click or pressing enter</b>.
+                A callback function that fires when a suggestion is selected by mouse click, enter, or tab.
                 <span class="inline-code">event</span> is the event that triggered the callback,
                 <span class="inline-code">term</span> is the selected value.
                 and <span class="inline-code">item</span> is the item rendered by the renderItem function.
-                onSelect does <b>not</b> fire when pressing <i>Enter</i>, <i>Tab</i>, and other control keys that are passed directly to the input field.
             </td></tr>
 
             <tr><td colspan="3">&nbsp;</td></tr>
@@ -295,7 +294,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
                     return '<div class="autocomplete-suggestion" data-langname="'+item[0]+'" data-lang="'+item[1]+'" data-val="'+search+'"><img src="img/'+item[1]+'.png"> '+item[0].replace(re, "<b>$1</b>")+'</div>';
                 },
                 onSelect: function(e, term, item){
-                    console.log('Item "'+item.data('langname')+' ('+item.data('lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter' : 'mouse click')+'.');
+                    console.log('Item "'+item.data('langname')+' ('+item.data('lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter or tab' : 'mouse click')+'.');
                     $('#advanced-demo').val(item.data('langname')+' ('+item.data('lang')+')');
                 }
             });
