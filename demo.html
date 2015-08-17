@@ -122,6 +122,7 @@ $(selector).autoComplete({key1: value1, key2: value2});
                     <p>A function that gives you control over how suggestions are displayed. Default:</p>
 <pre>
 function (item, search){
+    search = search.replace(<b>/[-\/\\^$*+?.()|[\]{}]/</b>g, <b>'\\$&'</b>);
     var re = new RegExp(&quot;(&quot; + search.split(' ').join('|') + &quot;)&quot;, &quot;gi&quot;);
     return '&lt;div class=&quot;autocomplete-suggestion&quot; data-val=&quot;' + item + '&quot;&gt;'\
         + item.replace(re, &quot;&lt;b&gt;$1&lt;/b&gt;&quot;) + '&lt;/div&gt;';
@@ -227,6 +228,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
         suggest(suggestions);
     },
     renderItem: function (item, search){
+        search = search.replace(<b>/[-\/\\^$*+?.()|[\]{}]/</b>g, <b>'\\$&'</b>);
         var re = new RegExp(<b>"("</b> + search.split(<b>' '</b>).join(<b>'|'</b>) + <b>")"</b>, <b>"gi"</b>);
         return <b>'&lt;div class="autocomplete-suggestion" data-langname="'</b>+item[0]+<b>'" data-lang="'</b>+item[1]+<b>'" data-val="'</b>+search+<b>'">&lt;img src="img/'</b>+item[1]+<b>'.png"&gt; '</b>+item[0].replace(re, <b>"&lt;b&gt;$1&lt;/b&gt;"</b>)+<b>'&lt;/div&gt;'</b>;
     },
@@ -290,6 +292,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
                     suggest(suggestions);
                 },
                 renderItem: function (item, search){
+                    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                     var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
                     return '<div class="autocomplete-suggestion" data-langname="'+item[0]+'" data-lang="'+item[1]+'" data-val="'+search+'"><img src="img/'+item[1]+'.png"> '+item[0].replace(re, "<b>$1</b>")+'</div>';
                 },
