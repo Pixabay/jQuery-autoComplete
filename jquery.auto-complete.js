@@ -77,6 +77,7 @@
                     o.onSelect(e, v, item);
                     that.sc.hide();
                 }
+                return false;
             });
 
             that.on('blur.autocomplete', function(){
