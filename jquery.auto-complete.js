@@ -96,7 +96,13 @@
                 that.cache[val] = data;
                 if (data.length && val.length >= o.minChars) {
                     var s = '';
-                    for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
+                    for (var i=0;i<data.length;i++) {
+                        var t = o.renderItem(data[i], val);
+                        if(i === 0 && o.autoFocus === true) {
+                            t = $(t).addClass('selected')[0].outerHTML;
+                        }
+                        s += t;
+                    }
                     that.sc.html(s);
                     that.updateSC(0);
                 }
@@ -124,6 +130,9 @@
                 // enter or tab
                 else if (e.which == 13 || e.which == 9) {
                     var sel = $('.autocomplete-suggestion.selected', that.sc);
+                    if(o.autoFocus === true) {
+                        that.val(sel.data('val'));
+                    }
                     if (sel.length && that.sc.is(':visible')) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 20); }
                 }
             });
