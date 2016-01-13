@@ -74,7 +74,7 @@
                 var item = $(this), v = item.data('val');
                 if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
-                    o.onSelect(e, v, item);
+                    o.onSelect(e, v, item, that);
                     that.sc.hide();
                 }
                 return false;
@@ -124,7 +124,7 @@
                 // enter or tab
                 else if (e.which == 13 || e.which == 9) {
                     var sel = $('.autocomplete-suggestion.selected', that.sc);
-                    if (sel.length && that.sc.is(':visible')) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 20); }
+                    if (sel.length && that.sc.is(':visible')) { o.onSelect(e, sel.data('val'), sel, that); setTimeout(function(){ that.sc.hide(); }, 20); }
                 }
             });
 
@@ -166,6 +166,6 @@
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
             return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
         },
-        onSelect: function(e, term, item){}
+        onSelect: function(e, term, item, input){}
     };
 }(jQuery));
