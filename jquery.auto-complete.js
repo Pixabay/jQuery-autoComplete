@@ -70,7 +70,7 @@
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mousedown', '.autocomplete-suggestion', function (e){
+            that.sc.on('mousedown click', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
                 if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
