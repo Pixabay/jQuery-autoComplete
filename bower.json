@@ -1,15 +1,19 @@
 {
     "name": "jquery-auto-complete",
     "description": "A lightweight autocomplete plugin for jQuery.",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "dependencies": {
         "jquery": ">=1.7"
     },
-    "homepage": "https://github.com/Pixabay/jQuery-autoComplete",
+    "homepage": "https://github.com/fahimfarookme/jQuery-autoComplete.git",
     "authors": [{
         "name": "Simon Steinberger",
         "url": "https://pixabay.com/users/Simon/",
         "email": "simon@pixabay.com"
+    }, {
+        "name": "Fahim Farook",
+        "url": "https://github.com/fahimfarookme/",
+        "email": "fahim@fahimfarook.me"
     }],
     "keywords": [
         "autocomplete",
@@ -27,7 +31,6 @@
         "url": "http://www.opensource.org/licenses/mit-license.php"
     }],
     "ignore": [
-        "bower.json",
         "demo.html",
         "auto-complete.jquery.json",
         "readme.md"
