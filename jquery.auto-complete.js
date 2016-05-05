@@ -55,7 +55,7 @@
             }
             $(window).on('resize.autocomplete', that.updateSC);
 
-            that.sc.appendTo(o.appendTo);
+            that.sc.appendTo(o.appendTo || 'body');
 
             that.sc.on('mouseleave', '.autocomplete-suggestion', function (){
                 $('.autocomplete-suggestion.selected').removeClass('selected');
