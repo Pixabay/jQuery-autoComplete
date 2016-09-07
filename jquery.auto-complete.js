@@ -37,10 +37,24 @@
             that.last_val = '';
 
             that.updateSC = function(resize, next){
+                var left = that.offset().left,
+                    width = that.outerWidth(),
+                    tmpPositioningElement;
+
+                if(typeof o.positioningElement !== 'undefined' && o.positioningElement){
+                    if(o.positioningElement instanceof $){
+                        left = o.positioningElement.offset().left;
+                        width = o.positioningElement.outerWidth();
+                    } else {
+                        tmpPositioningElement = $(o.positioningElement);
+                        left = tmpPositioningElement.offset().left;
+                        width = tmpPositioningElement.outerWidth();
+                    }
+                }
                 that.sc.css({
                     top: that.offset().top + that.outerHeight(),
-                    left: that.offset().left,
-                    width: that.outerWidth()
+                    left: left,
+                    width: width
                 });
                 if (!resize) {
                     that.sc.show();
