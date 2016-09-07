@@ -1,5 +1,5 @@
 /*
-	jQuery autoComplete v1.0.6
+	jQuery autoComplete v1.0.7
     Copyright (c) 2014 Simon Steinberger / Pixabay
     GitHub: https://github.com/Pixabay/jQuery-autoComplete
 	License: http://www.opensource.org/licenses/mit-license.php
@@ -84,13 +84,14 @@
                 $(this).addClass('selected');
             });
 
-            that.sc.on('mouseup', '.autocomplete-suggestion', function (e){
+            that.sc.on('mousedown click', '.autocomplete-suggestion', function (e){
                 var item = $(this), v = item.data('val');
                 if (v || item.hasClass('autocomplete-suggestion')) { // else outside click
                     that.val(v);
                     o.onSelect(e, v, item);
                     that.sc.hide();
                 }
+                return false;
             });
 
             that.on('blur.autocomplete', function(){
@@ -98,7 +99,8 @@
                 if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
-                } else if (!that.is(':focus')) that.focus();
+                    setTimeout(function(){ that.sc.hide(); }, 350); // hide suggestions on fast input
+                } else if (!that.is(':focus')) setTimeout(function(){ that.focus(); }, 20);
             });
 
             if (!o.minChars) that.on('focus.autocomplete', function(){ that.last_val = '\n'; that.trigger('keyup.autocomplete'); });
@@ -133,15 +135,15 @@
                 }
                 // esc
                 else if (e.which == 27) that.val(that.last_val).sc.hide();
-                // enter
-                else if (e.which == 13) {
+                // enter or tab
+                else if (e.which == 13 || e.which == 9) {
                     var sel = $('.autocomplete-suggestion.selected', that.sc);
-                    if (sel.length) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 10); }
+                    if (sel.length && that.sc.is(':visible')) { o.onSelect(e, sel.data('val'), sel); setTimeout(function(){ that.sc.hide(); }, 20); }
                 }
             });
 
             that.on('keyup.autocomplete', function(e){
-                if (!~$.inArray(e.which, [13, 27, 38, 40, 37, 39])) {
+                if (!~$.inArray(e.which, [13, 27, 35, 36, 37, 38, 39, 40])) {
                     var val = that.val();
                     if (val.length >= o.minChars) {
                         if (val != that.last_val) {
@@ -173,6 +175,8 @@
         cache: 1,
         menuClass: '',
         renderItem: function (item, search){
+            // escape special characters
+            search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
             return '<div class="autocomplete-suggestion" data-val="' + item + '">' + item.replace(re, "<b>$1</b>") + '</div>';
         },

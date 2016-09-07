@@ -122,6 +122,7 @@ $(selector).autoComplete({key1: value1, key2: value2});
                     <p>A function that gives you control over how suggestions are displayed. Default:</p>
 <pre>
 function (item, search){
+    search = search.replace(<b>/[-\/\\^$*+?.()|[\]{}]/</b>g, <b>'\\$&'</b>);
     var re = new RegExp(&quot;(&quot; + search.split(' ').join('|') + &quot;)&quot;, &quot;gi&quot;);
     return '&lt;div class=&quot;autocomplete-suggestion&quot; data-val=&quot;' + item + '&quot;&gt;'\
         + item.replace(re, &quot;&lt;b&gt;$1&lt;/b&gt;&quot;) + '&lt;/div&gt;';
@@ -134,11 +135,10 @@ function (item, search){
             <tr><td colspan="3">&nbsp;</td></tr>
             <tr><th>Callbacks</th><th colspan="2"></th></tr>
             <tr><td>onSelect(event, term, item)</td><td colspan="2">
-                A callback function that fires when a suggestion is <b>selected by mouse click or pressing enter</b>.
+                A callback function that fires when a suggestion is selected by mouse click, enter, or tab.
                 <span class="inline-code">event</span> is the event that triggered the callback,
                 <span class="inline-code">term</span> is the selected value.
                 and <span class="inline-code">item</span> is the item rendered by the renderItem function.
-                onSelect does <b>not</b> fire when pressing <i>Enter</i>, <i>Tab</i>, and other control keys that are passed directly to the input field.
             </td></tr>
 
             <tr><td colspan="3">&nbsp;</td></tr>
@@ -229,6 +229,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
         suggest(suggestions);
     },
     renderItem: function (item, search){
+        search = search.replace(<b>/[-\/\\^$*+?.()|[\]{}]/</b>g, <b>'\\$&'</b>);
         var re = new RegExp(<b>"("</b> + search.split(<b>' '</b>).join(<b>'|'</b>) + <b>")"</b>, <b>"gi"</b>);
         return <b>'&lt;div class="autocomplete-suggestion" data-langname="'</b>+item[0]+<b>'" data-lang="'</b>+item[1]+<b>'" data-val="'</b>+search+<b>'">&lt;img src="img/'</b>+item[1]+<b>'.png"&gt; '</b>+item[0].replace(re, <b>"&lt;b&gt;$1&lt;/b&gt;"</b>)+<b>'&lt;/div&gt;'</b>;
     },
@@ -292,11 +293,12 @@ $(<b>'input[name="q"]'</b>).autoComplete({
                     suggest(suggestions);
                 },
                 renderItem: function (item, search){
+                    search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                     var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
                     return '<div class="autocomplete-suggestion" data-langname="'+item[0]+'" data-lang="'+item[1]+'" data-val="'+search+'"><img src="img/'+item[1]+'.png"> '+item[0].replace(re, "<b>$1</b>")+'</div>';
                 },
                 onSelect: function(e, term, item){
-                    console.log('Item "'+item.data('langname')+' ('+item.data('lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter' : 'mouse click')+'.');
+                    console.log('Item "'+item.data('langname')+' ('+item.data('lang')+')" selected by '+(e.type == 'keydown' ? 'pressing enter or tab' : 'mouse click')+'.');
                     $('#advanced-demo').val(item.data('langname')+' ('+item.data('lang')+')');
                 }
             });
@@ -304,7 +306,7 @@ $(<b>'input[name="q"]'</b>).autoComplete({
 
         if (~window.location.href.indexOf('http')) {
             (function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();
-            (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=380275075435187&version=v2.0";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
+            (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=114593902037957";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
             $('#github_social').html('\
                 <iframe style="float:left;margin-right:15px" src="//ghbtns.com/github-btn.html?user=Pixabay&repo=jQuery-autoComplete&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>\
