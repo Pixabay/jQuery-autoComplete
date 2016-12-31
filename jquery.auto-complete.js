@@ -81,7 +81,7 @@
             });
 
             that.on('blur.autocomplete', function(){
-                try { over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // IE7 fix :hover
+                try { var over_sb = $('.autocomplete-suggestions:hover').length; } catch(e){ over_sb = 0; } // IE7 fix :hover
                 if (!over_sb) {
                     that.last_val = that.val();
                     that.sc.hide();
