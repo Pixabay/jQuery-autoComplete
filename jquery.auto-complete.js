@@ -103,7 +103,12 @@
                 else
                     that.sc.hide();
             }
-
+	    // manually trigger the autocomplete popup
+            that.on('autocomplete.popup', function(e) { 
+		    var val = that.val();
+		    o.source(val,suggest);
+	    });
+		
             that.on('keydown.autocomplete', function(e){
                 // down (40), up (38)
                 if ((e.which == 40 || e.which == 38) && that.sc.html()) {
@@ -143,7 +148,7 @@
                                     if (part in that.cache && !that.cache[part].length) { suggest([]); return; }
                                 }
                             }
-                            that.timer = setTimeout(function(){ o.source(val, suggest) }, o.delay);
+                            that.timer = setTimeout(function(){ that.trigger('autocomplete.popup') }, o.delay);
                         }
                     } else {
                         that.last_val = val;
