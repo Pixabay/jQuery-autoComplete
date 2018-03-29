@@ -38,8 +38,8 @@
 
             that.updateSC = function(resize, next){
                 that.sc.css({
-                    top: that.offset().top + that.outerHeight(),
-                    left: that.offset().left,
+                    top: that.offset().top - $(o.appendTo).offset().top + that.outerHeight(),
+                    left: that.offset().left - $(o.appendTo).offset().left,
                     width: that.outerWidth()
                 });
                 if (!resize) {
@@ -56,7 +56,7 @@
                                 that.sc.scrollTop(selTop + scrTop);
                         }
                 }
-            }
+            };
             $(window).on('resize.autocomplete', that.updateSC);
 
             that.sc.appendTo('body');
@@ -160,6 +160,7 @@
         delay: 150,
         cache: 1,
         menuClass: '',
+        appendTo: 'body',
         renderItem: function (item, search){
             // escape special characters
             search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
