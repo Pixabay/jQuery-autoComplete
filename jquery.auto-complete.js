@@ -32,7 +32,7 @@
             // sc = 'suggestions container'
             that.sc = $('<div class="autocomplete-suggestions '+o.menuClass+'"></div>');
             that.data('sc', that.sc).data('autocomplete', that.attr('autocomplete'));
-            that.attr('autocomplete', 'off');
+            that.attr('autocomplete', that.data('autocomplete-override') || 'off');
             that.cache = {};
             that.last_val = '';
 
